@@ -4,13 +4,13 @@ body {
   font-family: -apple-system, Inter, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
-  color: white;
+  color: rgb(228, 228, 248);
 } 
 
 .app-container {
   height: 100vh;
   /* background-color: linear-gradient(141deg, rgb(18, 9, 95) 0%, rgba(10,101,222,1) 100%); */
-  background-color:  rgb(18, 9, 95);
+  background-color:  rgb(10, 6, 43);
   overflow: scroll;
   position: relative;
 }
@@ -19,6 +19,12 @@ body {
   position: absolute;
   top: .5rem;
   left: .5rem;
+  color: rgb(228, 228, 248) !important;
+  /* border: 1px solid rgb(59, 59, 121);
+  border-radius: 1.3rem;
+  background-color: rgb(12, 12, 41);
+  padding: .2rem .9rem; */
+  padding-left: 1rem;
 }
 
 
@@ -32,18 +38,13 @@ body {
 }
 
 .subtitle {
-  color: white;
+  color: rgb(180, 180, 242);
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 400;
 }
 
 .title {
-  /* background-image: linear-gradient(90deg, rgba(45,213,255,1) 0%, rgba(220,53,226,1) 100%);
-  background-clip: text; */
-  /* background-image: linear-gradient(60deg, #E21143, #FFB03A);
-  background-clip: text;
-  color: transparent; */
   color: rgba(45,213,255,1);
   margin-top: 25%;
   margin-bottom: 1rem;
@@ -56,6 +57,33 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+
+.metrics-container {
+  margin-top: 5%;
+  margin-bottom: 2rem;
+  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(59, 59, 121);
+  border-radius: 1.3rem;
+  background-color: rgb(12, 12, 41);
+}
+
+
+.metric {
+  padding: 1rem;
+  margin: 0.25rem 0.25rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgb(59, 59, 121);
+  border-radius: 1rem;
+  background-color: rgb(16, 16, 52);
+}
+
+.top-chunk {
+  display: flex;
+  flex-direction: row;
 }
 
 .connect-wallet-button {
@@ -75,4 +103,34 @@ body {
   background: linear-gradient(90deg, rgba(96,198,87,.9) 0%, rgba(53,174,226,.9) 100%);
   transition-delay: 1s;
 
+}
+
+
+
+
+thead{
+  border-bottom: 1px solid rgb(59, 59, 121);
+}
+
+th{
+  padding: 1rem;
+}
+
+tr {
+  padding-bottom: 1rem;
+}
+
+
+@media screen and (max-width: 650px) {
+  html {
+    font-size: 10px;
+  }
+  .top-chunk {
+    display: flex;
+    flex-direction: column;
+  }
+  .metrics-container {
+    border: 0px;
+    margin-top: 20px;
+  }
 }
