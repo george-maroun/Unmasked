@@ -1,14 +1,15 @@
 import React from "react";
 import '../style.css';
+import { ethers } from "ethers";
 
-const ConnectButton = () => {
+const ConnectButton = (props) => {
   return (
     <div className="button-container">
       <p className="title">Welcome to Unmasked</p>
       <p className="subtitle">Connect your Metamask Wallet</p>
       <button 
         className="connect-wallet-button"
-        onClick={connectWallet}
+        onClick={() => connectWallet(props.connectToMetamask)}
       >
         Connect wallet
         </button> 
@@ -16,7 +17,7 @@ const ConnectButton = () => {
   )
 }
 
-const connectWallet = async () => {
+const connectWallet = async (connectToMetamask) => {
   try {
     const { ethereum } = window;
 
@@ -27,12 +28,12 @@ const connectWallet = async () => {
 
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
 
+    
+    await connectToMetamask(accounts[0]);
     console.log("Connected", accounts[0]);
-    setCurrentAccount(accounts[0]);
-
     // Setup listener! This is for the case where a user comes to our site
     // and connected their wallet for the first time.
-    setupEventListener() 
+    // setupEventListener() 
   } catch (error) {
     console.log(error)
   }

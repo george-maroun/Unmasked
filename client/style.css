@@ -4,14 +4,25 @@ body {
   font-family: -apple-system, Inter, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
+  color: white;
 } 
 
-
-.App {
+.app-container {
   height: 100vh;
   /* background-color: linear-gradient(141deg, rgb(18, 9, 95) 0%, rgba(10,101,222,1) 100%); */
   background-color:  rgb(18, 9, 95);
   overflow: scroll;
+  position: relative;
+}
+
+.public-key {
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+}
+
+
+.App {
   text-align: center;
   margin: 0px;
   padding: 0px;
