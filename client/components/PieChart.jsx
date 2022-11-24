@@ -35,7 +35,9 @@ function PieChart(props) {
           plugins: {
             title: {
               display: true,
-              text: "Wallet diversity"
+              text: "Wallet diversity",
+              color: "rgb(228, 228, 248)",
+              fullSize: true
             }
           }
         }}

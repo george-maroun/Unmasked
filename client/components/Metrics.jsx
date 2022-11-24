@@ -99,7 +99,7 @@ class Metrics extends React.Component {
           </div>
         </div>
         <div className="metric">
-          <Table metrics={this.state.metricsArr}/>
+          <Table assets={this.props.assets} metrics={this.state.metricsArr}/>
         </div>
       </div>
     )

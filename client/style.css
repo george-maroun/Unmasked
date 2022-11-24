@@ -7,6 +7,11 @@ body {
   color: rgb(228, 228, 248);
 } 
 
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
 .app-container {
   height: 100vh;
   /* background-color: linear-gradient(141deg, rgb(18, 9, 95) 0%, rgba(10,101,222,1) 100%); */

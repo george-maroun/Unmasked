@@ -5,6 +5,18 @@ import Metrics from "./components/Metrics.jsx";
 
 import "./style.css";
 
+// 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+// const provider = new ethers.providers.JsonRpcProvider();
+// const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
+// const usdcAbi = ["function balanceOf(address) view returns (uint)"];
+
+// const usdcContract = new ethers.Contract(usdcAddress, usdcAbi, provider);
+// usdcBalance = await daiContract.balanceOf("0x3e5fb26fFed4653de14132f08a4385C4e2eA1Ed1")
+
+// ethers.utils.formatUnits(usdcBalance, 18)
+
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -22,8 +34,6 @@ class App extends React.Component {
     if (!ethereum) {
         console.log("Make sure you have metamask!");
         return;
-    } else {
-        console.log("We have the ethereum object", ethereum);
     }
 
     const accounts = await ethereum.request({ method: 'eth_accounts' });
@@ -31,7 +41,7 @@ class App extends React.Component {
     if (accounts.length !== 0) {
         const account = accounts[0];
         console.log("Found an authorized account:", account);
-        connectToMetamask(account)
+        this.connectToMetamask(account)
         
     } else {
         console.log("No authorized account found")
@@ -43,13 +53,24 @@ class App extends React.Component {
     const provider = new ethers.providers.JsonRpcProvider("https://mainnet.infura.io/v3/c364e7d757af43db8b6261eeb1021e0e");
     let balance = await provider.getBalance(this.state.currentAccount)
     balance = ethers.utils.formatEther(balance)
+
+
+    const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
+    const usdcAbi = ["function balanceOf(address) view returns (uint)"];
+
+    const usdcContract = new ethers.Contract(usdcAddress, usdcAbi, provider);
+    let usdcBalance = await usdcContract.balanceOf("0x3e5fb26fFed4653de14132f08a4385C4e2eA1Ed1")
+    // console.log("USDC", usdcBalance/1000000)
+    usdcBalance = usdcBalance/1000000
+    // usdcBalance = ethers.utils.formatUnits(usdcBalance, 16)
+    
     this.setState({
       ...this.state,      
       assets: {
         'ethereum': balance,
-        'usd-coin': '700',
+        'usd-coin': usdcBalance,
         'matic-network': '150',
-        'gmx': '12'
+        'lido-dao': '300'
       }
     });
   }

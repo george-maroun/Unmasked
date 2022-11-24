@@ -24,9 +24,9 @@ const Table = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.metrics.map((token) => (
+          {props.metrics.map((token, i) => (
             <tr key={token.name}>
-              <td style={{padding:".5rem .7rem"}}>{token.name}</td>
+              <td style={{padding:".5rem .7rem"}}><a target="_blank" href={"https://www.coingecko.com/en/coins/" + Object.keys(props.assets)[i]}>{token.name}</a></td>
               <td>{token.symbol.toUpperCase()}</td>
               <td>${token.price}</td>
               <td>${token["amount_usd"]}</td>
