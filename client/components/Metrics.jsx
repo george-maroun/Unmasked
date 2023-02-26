@@ -13,23 +13,12 @@ class Metrics extends React.Component {
     };
   }
 
-  // assets: {
-  //   'ethereum': '0.5032',
-  //   'usd-coin': '700',
-  //   'matic-network': '34',
-  //   'gmx': '12'
-  // }
 
-  // get data: [{name: 'Ethereum', symbol: 'eth', price: '1200', amount_usd: '5032', 1y_return:'23'}, ...]
-
-  // Declare function
   async getApiData() {
     console.log(this.props.assets)
-    // declare a metrics array
     const metricsArray = [];
     // loop over assets
     for (let asset in this.props.assets) {
-      //console.log(hi);
       // declare obj
       const obj = {};
       // fetch from coingecko: name, symbol, price, amount_usd = Number(assets[asset]) * price
@@ -65,7 +54,6 @@ class Metrics extends React.Component {
     if (this.state.metricsArr.length === 0) {
       this.getApiData();
     } 
-    // console.log(this.state.metricsArr);
 
     let val = 0;
     
@@ -86,20 +74,20 @@ class Metrics extends React.Component {
 
   render() {
     return (
-      <div className="metrics-container">
-        {/* <div className="metric">
-         <div className="title" style={{fontSize:"3rem !important", padding:"0px", margin:"0px"}}>Unmasked wallet</div>
-        </div> */}
-        <div className="top-chunk">
-          <div className="metric">
-            <PieChart value={this.state.value} metrics={this.state.metricsArr}/>
+      <div>
+        <div className="small-title">UnMasked</div>
+        <div className="metrics-container">
+          <div className="top-chunk">
+            <div className="metric">
+              <PieChart value={this.state.value} metrics={this.state.metricsArr}/>
+            </div>
+            <div className="metric">
+              <TotalValue value={this.state.value}/>
+            </div>
           </div>
           <div className="metric">
-            <TotalValue value={this.state.value}/>
+            <Table assets={this.props.assets} metrics={this.state.metricsArr}/>
           </div>
-        </div>
-        <div className="metric">
-          <Table assets={this.props.assets} metrics={this.state.metricsArr}/>
         </div>
       </div>
     )
@@ -107,5 +95,3 @@ class Metrics extends React.Component {
 }
 
 export default Metrics;
-
-// https://api.etherscan.io/api?module=account&action=balance&address=0x3e5fb26fFed4653de14132f08a4385C4e2eA1Ed1&tag=latest&apikey=W72XDZDRG4FAI5W2UM6M4SI3AXJGQMGK35

@@ -31,9 +31,6 @@ const connectWallet = async (connectToMetamask) => {
     
     await connectToMetamask(accounts[0]);
     console.log("Connected", accounts[0]);
-    // Setup listener! This is for the case where a user comes to our site
-    // and connected their wallet for the first time.
-    // setupEventListener() 
   } catch (error) {
     console.log(error)
   }

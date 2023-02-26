@@ -2,11 +2,6 @@ import React from "react";
 import '../style.css';
 
 const Table = (props) => {
-//   const metrics = [
-//     {name: 'Ethereum', symbol: 'eth', price: '1200', amount_usd: '503', return:'23'},
-//     {name: 'Polygon', symbol: 'matic', price: '3', amount_usd: '110', return:'11'}
-// ];
-
 
 // get data: [{name: 'Ethereum', symbol: 'eth', price: '1200', amount_usd: '5032', 1y_return:'23'}, ...]
   if (props.metrics) {

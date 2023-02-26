@@ -57,6 +57,14 @@ a {
   font-weight: 500;
 }
 
+.small-title {
+  color: rgba(45,213,255,1);
+  margin-top: 5%;
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: 500;
+}
+
 .button-container {
   display: flex;
   justify-content: center;

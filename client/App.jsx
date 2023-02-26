@@ -5,18 +5,6 @@ import Metrics from "./components/Metrics.jsx";
 
 import "./style.css";
 
-// 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
-// const provider = new ethers.providers.JsonRpcProvider();
-// const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
-// const usdcAbi = ["function balanceOf(address) view returns (uint)"];
-
-// const usdcContract = new ethers.Contract(usdcAddress, usdcAbi, provider);
-// usdcBalance = await daiContract.balanceOf("0x3e5fb26fFed4653de14132f08a4385C4e2eA1Ed1")
-
-// ethers.utils.formatUnits(usdcBalance, 18)
-
-
-
 
 class App extends React.Component {
   constructor(props) {
@@ -51,27 +39,41 @@ class App extends React.Component {
 
   async getTokenBalances() {
     const provider = new ethers.providers.JsonRpcProvider("https://mainnet.infura.io/v3/c364e7d757af43db8b6261eeb1021e0e");
-    let balance = await provider.getBalance(this.state.currentAccount)
-    balance = ethers.utils.formatEther(balance)
+    let ethBalance = await provider.getBalance(this.state.currentAccount)
+    ethBalance = ethers.utils.formatEther(ethBalance);
+    
+    const tokenInfo = [
+      {slug:'usd-coin', address:'0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', decimals:6}, 
+      {slug:'matic-network', address:'0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0', decimals:18}, 
+      {slug:'tether', address:'0xdAC17F958D2ee523a2206206994597C13D831ec7', decimals:6}, 
+      {slug:'binancecoin', address:'0xB8c77482e45F1F44dE1745F52C74426C631bDD52', decimals:18}, 
+      {slug:'uniswap', address:'0x1f9840a85d5af5bf1d1762f925bdaddc4201f984', decimals:18},
+      {slug:'chainlink', address:'0x514910771af9ca656af840dff83e8264ecf986ca', decimals:18},
+      {slug:'dai', address:'0x6B175474E89094C44Da98b954EedeAC495271d0F', decimals:18},
+      {slug:'havven', address:'0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f', decimals:18},
+      {slug:'crypto-com-chain', address:'0xA0b73E1Ff0B80914AB6fe0444E65848C4C34450b', decimals:8},
+      {slug:'compound-governance-token', address:'0xc00e94cb662c3520282e6f5717214004a7f26888', decimals:18}
+    ];
 
+    const abi = ["function balanceOf(address) view returns (uint)"];
+    const assets = {};
+    if (ethBalance > 0) {
+      assets.ethereum = ethBalance;
+    }
 
-    const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
-    const usdcAbi = ["function balanceOf(address) view returns (uint)"];
-
-    const usdcContract = new ethers.Contract(usdcAddress, usdcAbi, provider);
-    let usdcBalance = await usdcContract.balanceOf("0x3e5fb26fFed4653de14132f08a4385C4e2eA1Ed1")
-    // console.log("USDC", usdcBalance/1000000)
-    usdcBalance = usdcBalance/1000000
-    // usdcBalance = ethers.utils.formatUnits(usdcBalance, 16)
+    for (let token of tokenInfo) {
+      const currTokenAddress = token.address;
+      const contract = new ethers.Contract(currTokenAddress, abi, provider);
+      let balance = await contract.balanceOf(this.state.currentAccount);
+      balance = ethers.utils.formatUnits(balance, token.decimals);
+      if (Number(balance) > 0) {
+        assets[token.slug] = balance;
+      }
+    }
     
     this.setState({
       ...this.state,      
-      assets: {
-        'ethereum': balance,
-        'usd-coin': usdcBalance,
-        'matic-network': '150',
-        'lido-dao': '300'
-      }
+      assets: assets
     });
   }
 
@@ -82,7 +84,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    if (Object.keys(this.state.assets).length === 0) {
+    if (Object.keys(this.state.assets).length === 0 && this.state.currentAccount) {
       this.getTokenBalances();
     }
     else {
